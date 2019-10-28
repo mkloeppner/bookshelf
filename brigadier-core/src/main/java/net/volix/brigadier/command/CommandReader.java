@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import net.volix.brigadier.Brigadier;
 import net.volix.brigadier.context.CommandContext;
 import net.volix.brigadier.parameter.ParameterSet;
-import tv.rewinside.commons.java.reflection.Reflections;
+import net.volix.brigadier.util.Reflections;
 
 /**
  * @author Tobias Büser
