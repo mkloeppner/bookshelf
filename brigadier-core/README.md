@@ -82,7 +82,10 @@ public class MyAdapter extends BrigadierAdapter<Integer> {
 	
 	@Override
 	public Class<Integer> getCommandSourceClass() {
-		// returns the class of the command source as we can't get the exact source class during runtime otherwise
+		/*
+		  returns the class of the command source as we can't get 
+		  the exact source class during runtime otherwise
+		*/
 		return Integer.class;
 	}
 	
@@ -137,7 +140,29 @@ public void exec(S commandSource, CommandContext context, ParameterSet parameter
 
 They will be automatically registered with the parent command, if the methods exist within the same specified range. For our example the range is defined as one single class. Otherwise we would have to use a different approach when registering commands.
 
-### Using custom parameter parser
+### Parse custom parameter
+
+`ParameterSet` in brigadier has the ability to parse arguments to custom parameters. This way you can use `parameter.getInt(0)` instead of parsing it yourself. Or to be more abstract `parameter.get(0, Integer.class)`.  
+To create a custom type, we just implement `ParameterType`:
+
+```java
+public class MyParameter implements ParameterType<MyObject> {
+	@Override
+	public MyObject parse(String string) {
+		// put your parsing logic here
+		if(string.isEmpty()) return null;
+		return new MyObject(string);
+	}
+	
+	@Override
+	public Class<MyObject> getTypeClass() {
+		return MyObject.class;
+	}
+}
+```
+
+Now we can register this type to brigadier with `Brigadier.getInstance().registerTypes(new MyParameter())`.  
+To use the custom type, simply access `ParameterSet#get(index, MyParameter.class)`.
 
 ### Tab completion/suggestions
 
