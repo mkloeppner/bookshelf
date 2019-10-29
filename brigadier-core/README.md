@@ -51,14 +51,14 @@ public class MyAdapter extends BrigadierAdapter<Integer> {
 	  for this example we use "Integer" as command source, 
 	  just think of it as an id for an user executing the command.
           but you can choose whatever type you want as source
-	 */
+	*/
 	
 	@Override
 	public void handleRegister(final String label, final CommandInstance command) {
 		/*
 		  this method will be called if we register a command to brigadier
 		  we can use this to register the command to _Bukkit_ or _BungeeCord_ for example
-		 */
+		*/
 	}
 	
 	@Override
@@ -66,7 +66,7 @@ public class MyAdapter extends BrigadierAdapter<Integer> {
 		/*
 		  in this method we can check if a command can be executed by the giving command source
 		  in our example we just return true, every user can execute every command therefore
-		 */
+		*/
 		return true;
 	}
 	
@@ -77,7 +77,7 @@ public class MyAdapter extends BrigadierAdapter<Integer> {
 		  we started using the same approach for every project, 
 		  but it turns out, that for some cases it is more efficient to 
 		  do it differently (e.g. with _Bukkit's schedulers_)
-		 */
+		*/
 	}
 	
 	@Override
@@ -91,7 +91,7 @@ public class MyAdapter extends BrigadierAdapter<Integer> {
 		/*
 		  returns the context we created earlier. 
 		  This way brigadier can provide us the context automatically during execution
-		 */
+		*/
 		return new MyCommantContext(commandSource, command, parameter);
 	}
 	
