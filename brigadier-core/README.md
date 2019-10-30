@@ -140,7 +140,7 @@ public void exec(S commandSource, CommandContext context, ParameterSet parameter
 
 They will be automatically registered with the parent command, if the methods exist within the same specified range. For our example the range is defined as one single class. Otherwise we would have to use a different approach when registering commands.
 
-### Parse custom parameter
+### Parsing custom parameters
 
 `ParameterSet` in brigadier has the ability to parse arguments to custom parameters. This way you can use `parameter.getInt(0)` instead of parsing it yourself. Or to be more abstract `parameter.get(0, Integer.class)`.  
 To create a custom type, we just implement `ParameterType`:
@@ -166,21 +166,39 @@ To use the custom type, simply access `ParameterSet#get(index, MyParameter.class
 
 ### Tab completion/suggestions
 
+If the command source  is a real user, then it can be useful to give suggestions during the command input. That can be done in brigadier by first creating a _tab completion method_:
+
+```java
+@TabCompletor(command = "myCommand")
+public List<String> onTabComplete(Integer commandSource, int index) {
+	/* 
+	  let's suppose for our example, that he wants to do 
+	  arithmetic operations (usage: /arithm num1 oper num2)
+	*/
+	return index == 1 ? Arrays.asList("plus", "minus", "div", "times") : new ArrayList<>();
+}
+```
+
+This method will be automatically registered with the command, if this method is in the same scope. We will have a look at the registering process later.
+
 ### Command usage syntax
+
+`Command` includes a field `usage` which can be used to send help information to the user or to be able to decide how many parameters the user has to pass.  
+An example of a common usage would be:
+```java
+@Command(label = "arithm", usage = "<num1> <operation> <num2> [-r]")
+	...
+```
+
+In this example we have `arithm` as the command to execute an arithmetic operation.  
+- `<..>` defines a **needed** parameter, so that the user has to pass down this argument.  
+- `[..]` defines an **optional** parameter, so it can be ommited.  
+
+The syntax of the usage can be defined via _regex_ with: `(([<\\[(])[a-zA-Z_0-9:|()-]+([>\\])])( )?)+`  
+As you can see, only characters from `a-z`, `A-Z`, `_`, `0-9` and `-` are allowed
 
 ### Registering a command
 
 ### Executing commands
 
 ### Execution results and result handler
-
-- (X) integration into your environment (adapter)
-- (X) creating a command
-- command parameters
-- creating sub commands
-- registering a command
-- tab completion / suggestions
-- command usage parsing
-- executing a command
-- execution results and result handler
-- examples
