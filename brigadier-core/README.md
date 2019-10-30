@@ -211,8 +211,8 @@ Sometimes it's important to define a closer scope. We can achieve that by modify
 
 ```java
 Brigadier.getInstance().register(new MyCommand())
-					   .capsulated(true)
-					   .seperated(false)
+		       .capsulated(true)
+		       .seperated(false)
                        .execute();
 ```
 
