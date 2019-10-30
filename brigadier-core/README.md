@@ -222,17 +222,28 @@ As we can see, there are two ways of changing the behaviour of the registration:
 
 After that, we have to **execute** the registration. The advantage of the initializing and execution being seperated is that you can use the process object for further handling before executing it.
 
-### Executing commands
+### Execution and result handler
 
-### Execution results and result handler
+If you now want to execute the command, you can simply pass your parameters to `Brigadier#executeCommand`. That could look like the following:
 
-- (X) integration into your environment (adapter)
-- (X) creating a command
-- (X) command parameters
-- (X) creating sub commands
-- (X) tab completion / suggestions
-- (X) command usage syntax
-- registering a command
-- executing a command
-- execution results and result handler
-- examples
+```java
+Integer source = 42; // id of the command source
+String[] args = new String[]{ "3", "times", "4" }; // arguments passed to the command
+
+ExecutionResult<Integer> result = Brigadier.getInstance().executeCommand(source, "arithm", args);
+```
+
+Now you can use the `result` however you like. You could wait for the command to be executed (if asynchronously you can get the `CompletableFuture` from it by using `.getFuture`), or just check the _result code_ if something went wrong or not.  
+
+But if you want to handle the result directly in your command scope, then you can use the `ResultHandler` annotation to do that.
+
+```java
+public void onHandleResult(Integer source, CommandInstance command, ExecutionResult result) {
+	// do whatever you like with the result
+	if(result.getResult() == Result.Code.PASSED) {
+		System.out.println("@" + source + ": Your command passed! nice");
+	}
+}
+```
+
+The result handler, just like the tab completion handler etc., are automatically registered with the command object.
