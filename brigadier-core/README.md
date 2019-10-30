@@ -195,10 +195,44 @@ In this example we have `arithm` as the command to execute an arithmetic operati
 - `[..]` defines an **optional** parameter, so it can be ommited.  
 
 The syntax of the usage can be defined via _regex_ with: `(([<\\[(])[a-zA-Z_0-9:|()-]+([>\\])])( )?)+`  
-As you can see, only characters from `a-z`, `A-Z`, `_`, `0-9` and `-` are allowed
+As you can see, only characters from `a-z`, `A-Z`, `_`, `0-9`, `|`, `()` and `-` are allowed.
 
 ### Registering a command
+
+To register a command we have to initialize a `CommandRegisterProcess`.  
+An example to simple register a single-method command would be:
+
+```java
+Brigadier.getInstance().register(new MyCommand()).execute();
+```
+
+That way brigadier takes the methods out of the class and converts them to commands if the method signature is fitting.  
+Sometimes it's important to define a closer scope. We can achieve that by modifying the parameters in the process. Here is an example:
+
+```java
+Brigadier.getInstance().register(new MyCommand())
+					   .capsulated(true)
+					   .seperated(false)
+                       .execute();
+```
+
+As we can see, there are two ways of changing the behaviour of the registration:
+- `capsulated` (default: `true`) - If true, the process only searches for _parents_,  _children_ etc. in the same process (= the passed object classes). Already registered commands are not included.
+- `seperated` (default: `false`) - If false, the process handles the object classes as one single class (scope), so _parents_, _children_ etc. are shared amongst each other.
+
+After that, we have to **execute** the registration. The advantage of the initializing and execution being seperated is that you can use the process object for further handling before executing it.
 
 ### Executing commands
 
 ### Execution results and result handler
+
+- (X) integration into your environment (adapter)
+- (X) creating a command
+- (X) command parameters
+- (X) creating sub commands
+- (X) tab completion / suggestions
+- (X) command usage syntax
+- registering a command
+- executing a command
+- execution results and result handler
+- examples
