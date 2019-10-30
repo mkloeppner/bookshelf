@@ -10,11 +10,11 @@ Add this dependency to your pom.xml:
 
 ```xml
 <dependencies>
-  <dependency>
-    <groupId>net.volix.bookshelf</groupId>
-    <artifactId>brigadier-bungee</artifactId>
-    <version>0.1.0</version>
-  </dependency>
+    <dependency>
+        <groupId>net.volix.bookshelf</groupId>
+        <artifactId>brigadier-bungee</artifactId>
+        <version>0.1.0</version>
+    </dependency>
 </dependencies>
 ```
 

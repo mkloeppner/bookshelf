@@ -11,11 +11,13 @@ Currently we don't have a public location for this maven repository.
 BUT assuming there is a place you get this repo from, include the following to your **pom.xml**:
 
 ```xml
-<dependency>
-    <groupId>net.volix.bookshelf</groupId>
-    <artifactId>brigadier-core</artifactId>
-    <version>(latest version)</version>
-</dependency>
+<dependencies>
+    <dependency>
+        <groupId>net.volix.bookshelf</groupId>
+        <artifactId>brigadier-core</artifactId>
+        <version>(latest version)</version>
+    </dependency>
+</dependencies>
 ```
 
 ## Usage
