@@ -13,6 +13,10 @@
     <module>brigadier-bukkit</module>
     <module>brigadier-core</module>
     <module>brigadier-bungee</module>
+    <module>commons-collections</module>
+    <module>commons</module>
+    <module>commons-all</module>
+    <module>commons-maths</module>
 
     <!-- ... -->
   </modules>
